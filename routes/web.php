@@ -33,7 +33,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Route::get('/post/{id}', [TodoController::class,'edit'])->name('schedule.edit');
     // Route::put('/update/{id}', [TodoController::class,'update'])->name('schedule.update');
     Route::get('week', [TaskController::class, 'week'])->name('week');
-    // Route::get('month', [TodoController::class,'month'])->name('month');
+    Route::get('month', [TaskController::class, 'month'])->name('month');
 });
 
 Route::middleware('auth')->group(function () {
