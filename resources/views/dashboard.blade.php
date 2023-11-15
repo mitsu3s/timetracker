@@ -11,6 +11,15 @@
                 <div class="p-6 text-gray-900">
                     {{ __("You're logged in!") }}
                 </div>
+                @if ($tasks->isNotEmpty())
+                    <ul class="text-black">
+                        @foreach ($tasks as $item)
+                            <li>
+                                {{ $item->place }}
+                            </li>
+                        @endforeach
+                    </ul>
+                @endif
             </div>
         </div>
     </div>
