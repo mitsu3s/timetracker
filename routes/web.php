@@ -29,6 +29,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [TaskController::class, 'index'])->name('dashboard');
     Route::get('/create', [TaskController::class, 'create'])->name('create');
     Route::post('/store', [TaskController::class, 'store'])->name('store');
+    Route::get('/edit/{id}', [TaskController::class, 'edit'])->name('edit');
+    Route::post('/update/{id}.', [TaskController::class, 'update'])->name('update');
     // Route::delete('/destroy{id}', [TodoController::class,'destroy'])->name('schedule.destroy');
     // Route::post('/store', [TodoController::class,'store'])->name('schedule.store');
     // Route::get('/post', [TodoController::class,'post'])->name('post');

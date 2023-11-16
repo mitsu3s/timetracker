@@ -55,6 +55,38 @@ class TaskController extends Controller
         }
     }
 
+    public function edit($id)
+    {
+        $task = Task::find($id);
+        // Log::debug($task);
+        return view('edit', compact('task'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        Log::debug($request->all());
+        $request->validate([
+            'context' => 'required',
+            'place' => 'required',
+            'begin' => 'required',
+            'end' => 'required',
+        ]);
+
+        if (Auth::check()) {
+            $task = Task::find($id);
+            $task->context = $request->context;
+            $task->place = $request->place;
+            $task->begin = $request->begin;
+            $task->end = $request->end;
+            $task->user_id = Auth::user()->id;
+
+            $task->save();
+            return redirect()->route('dashboard');
+        } else {
+            return redirect()->route('login');
+        }
+    }
+
     public function week(Request $request)
     {
         $user_id = Auth::user()->id;
