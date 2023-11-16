@@ -32,6 +32,13 @@
                                         edit
                                     </a>
                                 </div>
+                                <div>
+                                    <form method="post" action="{{ route('destroy', ['id' => $task->id]) }}">
+                                        @csrf
+                                        @method('delete')
+                                        <button type="submit">delete</button>
+                                    </form>
+                                </div>
                         @endforeach
                     </ul>
                 @endif

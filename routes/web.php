@@ -30,12 +30,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/create', [TaskController::class, 'create'])->name('create');
     Route::post('/store', [TaskController::class, 'store'])->name('store');
     Route::get('/edit/{id}', [TaskController::class, 'edit'])->name('edit');
-    Route::post('/update/{id}.', [TaskController::class, 'update'])->name('update');
-    // Route::delete('/destroy{id}', [TodoController::class,'destroy'])->name('schedule.destroy');
-    // Route::post('/store', [TodoController::class,'store'])->name('schedule.store');
-    // Route::get('/post', [TodoController::class,'post'])->name('post');
-    // Route::get('/post/{id}', [TodoController::class,'edit'])->name('schedule.edit');
-    // Route::put('/update/{id}', [TodoController::class,'update'])->name('schedule.update');
+    Route::put('/update/{id}.', [TaskController::class, 'update'])->name('update');
+    Route::delete('/destoroy/{id}', [TaskController::class, 'destroy'])->name('destroy');
     Route::get('week', [TaskController::class, 'week'])->name('week');
     Route::get('month', [TaskController::class, 'month'])->name('month');
 });

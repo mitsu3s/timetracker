@@ -87,6 +87,17 @@ class TaskController extends Controller
         }
     }
 
+    public function destroy($id)
+    {
+        if (Auth::check()) {
+            $task = Task::find($id);
+            $task->delete();
+            return redirect()->route('dashboard');
+        } else {
+            return redirect()->route('login');
+        }
+    }
+
     public function week(Request $request)
     {
         $user_id = Auth::user()->id;

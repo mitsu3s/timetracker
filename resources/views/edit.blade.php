@@ -22,7 +22,7 @@
 
                     <form method="post" action="{{ route('update', ['id' => $task->id]) }}" class="mt-6 space-y-6">
                         @csrf
-                        {{-- @method('PUT') --}}
+                        @method('PUT')
                         <div>
                             <x-input-label for="context" :value="__('Context')" />
                             <x-text-input id="context" name="context" type="text" class="mt-1 block w-full"
