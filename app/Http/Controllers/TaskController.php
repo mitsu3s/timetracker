@@ -13,8 +13,46 @@ class TaskController extends Controller
     {
         $user_id = Auth::user()->id;
 
+        // Log::debug((session()->all()));
         $tasks = Task::where('user_id', $user_id)->get();
         return view('dashboard', compact('tasks'));
+    }
+
+    public function create(Request $request)
+    {
+        $user_id = Auth::user()->id;
+
+        $tasks = Task::where('user_id', $user_id)->get();
+        return view('create', compact('tasks'));
+    }
+
+    public function store(Request $request)
+    {
+        // Log::debug($request->all());
+        $request->validate([
+            'context' => 'required',
+            'place' => 'required',
+            'begin' => 'required',
+            'end' => 'required',
+        ]);
+
+        if (Auth::check()) {
+            $task = new Task();
+            $task->context = $request->context;
+            $task->place = $request->place;
+            $task->begin = $request->begin;
+            $task->end = $request->end;
+            $task->user_id = Auth::user()->id;
+
+            $task->save();
+
+            // return redirect('dashboard');
+            return redirect()->route('dashboard');
+        } else {
+
+            // return redirect('login');
+            return redirect()->route('login');
+        }
     }
 
     public function week(Request $request)
