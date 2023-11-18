@@ -13,6 +13,11 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="overflow-hidden shadow-sm sm:rounded-lg">
+                <!-- 左の矢印ボタン -->
+                <a href="{{ route('week', ['offset' => -1]) }}">back</a>
+
+                <!-- 右の矢印ボタン -->
+                <a href="{{ route('week', ['offset' => 1]) }}">next</a>
                 @if ($tasks->isNotEmpty())
                     @foreach ($tasks as $task)
                         <div class="pr-6 pb-2">

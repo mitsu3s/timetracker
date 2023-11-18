@@ -25,7 +25,7 @@
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('month')" :active="request()->routeIs('month')">
+                    <x-nav-link :href="route('setmonth')" :active="request()->routeIs('setmonth')">
                         {{ __('Month') }}
                     </x-nav-link>
                 </div>

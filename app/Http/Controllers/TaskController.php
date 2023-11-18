@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Carbon\Carbon;
 
 class TaskController extends Controller
 {
@@ -101,17 +102,90 @@ class TaskController extends Controller
 
     public function week(Request $request)
     {
+        // Log::debug($request->all());
         $user_id = Auth::user()->id;
 
-        $tasks = Task::where('user_id', $user_id)->where('begin', '>=', now())->where('begin', '<=', now()->addDays(7))->get();
+        // $tasks = Task::where('user_id', $user_id)->where('begin', '>=', now())->where('begin', '<=', now()->addDays(7))->get();
+
+        $offset = $request->query('offset', 0);
+
+        $beginDate = now()->addDays($offset * 7);
+        $endDate = $beginDate->copy()->addDays(7);
+
+        $tasks = Task::where('user_id', $user_id)
+            ->where('begin', '>=', $beginDate)
+            ->where('begin', '<=', $endDate)
+            ->orderBy('begin', 'asc')
+            ->get();
         return view('week', compact('tasks'));
     }
 
-    public function month(Request $request)
+    public function setmonth(Request $request)
+    {
+        $year = now()->year;
+        $month = now()->month;
+
+        return redirect()->route('month', ['year' => $year, 'month' => $month]);
+    }
+
+    public function movemonth(Request $request)
+    {
+        $year = $request->query('year');
+        $month = $request->query('month');
+        $offset = $request->query('offset');
+
+
+        if ($offset == 'back') {
+            $offset = -1;
+        } elseif ($offset == 'next') {
+            $offset = 1;
+        } else {
+            $offset = 0;
+        }
+        $month = $month + $offset;
+
+        if ($month > 12) {
+            $year += floor($month / 12);
+            $month = $month % 12;
+        } elseif ($month < 1) {
+            $year += ceil($month / 12) - 1;
+            $month = 12 + ($month % 12);
+        }
+
+        return redirect()->route('month', ['year' => $year, 'month' => $month]);
+    }
+
+    public function month(Request $request, $year, $month)
     {
         $user_id = Auth::user()->id;
+        $monthName = getMonthName($month);
 
-        $tasks = Task::where('user_id', $user_id)->where('begin', '>=', now())->where('begin', '<=', now()->addMonths(1))->get();
-        return view('month', compact('tasks'));
+        $tasks = Task::where('user_id', $user_id)
+            ->whereYear('begin', $year)
+            ->whereMonth('begin', $month)
+            ->orderBy('begin', 'asc')
+            ->get();
+
+        return view('month', compact('tasks', 'year', 'month', 'monthName'));
     }
+}
+
+function getMonthName($month)
+{
+    $monthNames = [
+        1 => 'January',
+        2 => 'February',
+        3 => 'March',
+        4 => 'April',
+        5 => 'May',
+        6 => 'June',
+        7 => 'July',
+        8 => 'August',
+        9 => 'September',
+        10 => 'October',
+        11 => 'November',
+        12 => 'December',
+    ];
+
+    return $monthNames[$month] ?? 'Invalid Month';
 }

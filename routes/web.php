@@ -32,8 +32,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/edit/{id}', [TaskController::class, 'edit'])->name('edit');
     Route::put('/update/{id}.', [TaskController::class, 'update'])->name('update');
     Route::delete('/destoroy/{id}', [TaskController::class, 'destroy'])->name('destroy');
-    Route::get('week', [TaskController::class, 'week'])->name('week');
-    Route::get('month', [TaskController::class, 'month'])->name('month');
+    Route::get('/week', [TaskController::class, 'week'])->name('week');
+    Route::get('/{year}/{month}', [TaskController::class, 'month'])->name('month');
+    Route::get('/month', [TaskController::class, 'setmonth'])->name('setmonth');
+    Route::get('/move', [TaskController::class, 'movemonth'])->name('movemonth');
 });
 
 Route::middleware('auth')->group(function () {
