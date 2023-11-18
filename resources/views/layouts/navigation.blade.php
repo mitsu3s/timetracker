@@ -19,7 +19,7 @@
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('week')" :active="request()->routeIs('week')">
+                    <x-nav-link :href="route('setweek')" :active="request()->routeIs('seteek')">
                         {{ __('Week') }}
                     </x-nav-link>
                 </div>

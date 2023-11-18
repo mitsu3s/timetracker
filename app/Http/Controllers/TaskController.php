@@ -100,24 +100,59 @@ class TaskController extends Controller
         }
     }
 
-    public function week(Request $request)
+    public function setweek(Request $request)
     {
-        // Log::debug($request->all());
+        $year = now()->year;
+        $month = now()->month;
+        $day = now()->day;
+
+        return redirect()->route('week', ['year' => $year, 'month' => $month, 'day' => $day]);
+    }
+
+    public function moveweek(Request $request)
+    {
+        $year = $request->query('year');
+        $month = $request->query('month');
+        $day = $request->query('day');
+        $offset = $request->query('offset');
+
+        if ($offset == 'back') {
+            $offset = -7;
+        } elseif ($offset == 'next') {
+            $offset = 7;
+        } else {
+            $offset = 0;
+        }
+
+        $startDate = Carbon::createFromDate($year, $month, $day)->startOfDay();
+        $endDate = $startDate->copy()->addDays(6)->endOfDay();
+
+        $startDate->addDays($offset);
+        $endDate->addDays($offset);
+
+        $year = $startDate->year;
+        $month = $startDate->month;
+        $day = $startDate->day;
+
+        return redirect()->route('week', ['year' => $year, 'month' => $month, 'day' => $day]);
+    }
+
+    public function week(Request $request, $year, $month, $day)
+    {
+
         $user_id = Auth::user()->id;
+        $startDate = Carbon::createFromDate($year, $month, $day)->startOfDay();
+        $endDate = $startDate->copy()->addDays(6)->endOfDay();
 
-        // $tasks = Task::where('user_id', $user_id)->where('begin', '>=', now())->where('begin', '<=', now()->addDays(7))->get();
-
-        $offset = $request->query('offset', 0);
-
-        $beginDate = now()->addDays($offset * 7);
-        $endDate = $beginDate->copy()->addDays(7);
 
         $tasks = Task::where('user_id', $user_id)
-            ->where('begin', '>=', $beginDate)
-            ->where('begin', '<=', $endDate)
-            ->orderBy('begin', 'asc')
+            ->whereBetween('begin', [$startDate, $endDate])
             ->get();
-        return view('week', compact('tasks'));
+
+        $start = $startDate->format('Y/m/d');
+        $end = $endDate->format('Y/m/d');
+
+        return view('week', compact('tasks', 'year', 'month', 'day', 'start', 'end'));
     }
 
     public function setmonth(Request $request)

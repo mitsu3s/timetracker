@@ -4,8 +4,8 @@
             <h2 class="font-semibold text-2xl text-gray-800 leading-tight">
                 {{ $year }} {{ $monthName }} Tasks
             </h2>
-            {{-- <a href="{{ route('movemonth', ['year' => $year, 'month' => $month, 'offset' => 'back']) }}">back</a> --}}
-            <a href="{{ route('movemonth') }}?year={{ $year }}&month={{ $month }}&offset=back">back</a>
+
+            <a href="{{ route('movemonth', ['year' => $year, 'month' => $month, 'offset' => 'back']) }}">back</a>
             <a href="{{ route('movemonth', ['year' => $year, 'month' => $month, 'offset' => 'next']) }}">next</a>
 
 
