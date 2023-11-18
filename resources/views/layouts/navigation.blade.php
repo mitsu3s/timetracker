@@ -5,8 +5,9 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
+                    <a href="{{ route('dashboard') }}" class="text-2xl">
+                        {{-- <x-application-logo class="block h-9 w-auto fill-current text-gray-800" /> --}}
+                        Task Tracker
                     </a>
                 </div>
 
@@ -18,13 +19,13 @@
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('week')" :active="request()->routeIs('week')">
+                    <x-nav-link :href="route('setweek')" :active="request()->routeIs('seteek')">
                         {{ __('Week') }}
                     </x-nav-link>
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('month')" :active="request()->routeIs('month')">
+                    <x-nav-link :href="route('setmonth')" :active="request()->routeIs('setmonth')">
                         {{ __('Month') }}
                     </x-nav-link>
                 </div>
