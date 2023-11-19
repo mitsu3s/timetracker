@@ -32,11 +32,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/edit/{id}', [TaskController::class, 'edit'])->name('edit');
     Route::put('/update/{id}.', [TaskController::class, 'update'])->name('update');
     Route::delete('/destoroy/{id}', [TaskController::class, 'destroy'])->name('destroy');
+
+    Route::get('/{year}/{month}/{day}', [TaskController::class, 'week'])->where([
+        'year' => '[0-9]+',
+        'month' => '([1-9]|1[0-2])',
+        'day' => '([1-9]|[1-2][0-9]|3[0-1])'
+    ])
+        ->name('week');
     Route::get('/week', [TaskController::class, 'setweek'])->name('setweek');
-    Route::get('/{year}/{month}/{day}', [TaskController::class, 'week'])->name('week');
     Route::get('/moveweek', [TaskController::class, 'moveweek'])->name('moveweek');
 
-    Route::get('/{year}/{month}', [TaskController::class, 'month'])->name('month');
+    Route::get('/{year}/{month}', [TaskController::class, 'month'])
+        ->where(['year' => '[0-9]+', 'month' => '([1-9]|1[0-2])'])
+        ->name('month');
+
     Route::get('/month', [TaskController::class, 'setmonth'])->name('setmonth');
     Route::get('/movemonth', [TaskController::class, 'movemonth'])->name('movemonth');
 });
