@@ -2,25 +2,27 @@
     <x-slot name="header">
         <div class="flex justify-between items-center">
             <h2 class="font-semibold text-2xl text-gray-800 leading-tight">
-                {{ $year }} {{ $monthName }} Tasks
+                <span class="hidden md:inline">{{ $year }} {{ $monthName }} Tasks</span>
+                <span class="inline md:hidden">{{ $year }} {{ $monthName }}</span>
             </h2>
-
-            <a href="{{ route('movemonth', ['year' => $year, 'month' => $month, 'offset' => 'back']) }}">back</a>
-            <a href="{{ route('movemonth', ['year' => $year, 'month' => $month, 'offset' => 'next']) }}">next</a>
-
-
-            <a href="{{ route('create') }}"
-                class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
-                {{ __('Create') }}
-            </a>
+            <div class="flex items-center">
+                <a href="{{ route('movemonth', ['year' => $year, 'month' => $month, 'offset' => 'back']) }}"
+                    class="px-4">back</a>
+                <a href="{{ route('movemonth', ['year' => $year, 'month' => $month, 'offset' => 'next']) }}"
+                    class="px-4">next</a>
+                <a href="{{ route('create') }}"
+                    class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                    {{ __('Create') }}
+                </a>
+            </div>
         </div>
     </x-slot>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="overflow-hidden">
                 @if ($tasks->isNotEmpty())
                     @foreach ($tasks as $task)
-                        <div class="pr-6 pb-2">
+                        <div class="px-6 pb-2">
                             <ul class="flex flex-col sm:flex-row">
                                 <li
                                     class="inline-flex items-center gap-x-2.5 py-3 px-4 text-sm font-medium bg-white border border-gray-200 text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg sm:-ms-px sm:mt-0 sm:first:rounded-se-none sm:first:rounded-es-lg sm:last:rounded-es-none sm:last:rounded-se-lg ">

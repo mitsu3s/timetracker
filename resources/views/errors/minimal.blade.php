@@ -23,11 +23,6 @@
                     <a href="{{ route('dashboard') }}" class="ml-4 text-blue-500">Dashboard</a>
                 </div>
             </div>
-            {{-- <div class="flex items-center pt-16 sm:justify-start sm:pt-0">
-                <div class="ml-4 text-lg text-gray-500 uppercase tracking-wider">
-                    <a href="{{ route('dashboard') }}">Dashboard</a>
-                </div>
-            </div> --}}
         </div>
     </div>
 </body>

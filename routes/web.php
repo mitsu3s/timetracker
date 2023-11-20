@@ -19,12 +19,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::get('/dashboard', [TaskController::class, 'index']);
-
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [TaskController::class, 'index'])->name('dashboard');
     Route::get('/create', [TaskController::class, 'create'])->name('create');

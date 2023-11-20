@@ -5,5 +5,5 @@
 @tailwind utilities;
 
 body {
-    font-family: "Ubuntu";
+    font-family: "Ubuntu" !important;
 }

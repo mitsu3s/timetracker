@@ -15,8 +15,8 @@ class TaskController extends Controller
     {
         $user_id = Auth::user()->id;
 
-        // Log::debug((session()->all()));
-        $tasks = Task::where('user_id', $user_id)->where('begin', '>=', now())->orderBy('begin', 'asc')
+        $tasks = Task::where('user_id', $user_id)
+            ->orderBy('begin', 'asc')
             ->get();
         return view('dashboard', compact('tasks'));
     }
@@ -31,12 +31,11 @@ class TaskController extends Controller
 
     public function store(Request $request)
     {
-        // Log::debug($request->all());
         $request->validate([
             'context' => 'required',
             'place' => 'required',
-            'begin' => 'required',
-            'end' => 'required',
+            'begin' => 'required|date',
+            'end' => 'required|date|after_or_equal:begin',
         ]);
 
         if (Auth::check()) {
@@ -49,11 +48,8 @@ class TaskController extends Controller
 
             $task->save();
 
-            // return redirect('dashboard');
             return redirect()->route('dashboard');
         } else {
-
-            // return redirect('login');
             return redirect()->route('login');
         }
     }
@@ -61,18 +57,17 @@ class TaskController extends Controller
     public function edit($id)
     {
         $task = Task::find($id);
-        // Log::debug($task);
+
         return view('edit', compact('task'));
     }
 
     public function update(Request $request, $id)
     {
-        Log::debug($request->all());
         $request->validate([
             'context' => 'required',
             'place' => 'required',
             'begin' => 'required',
-            'end' => 'required',
+            'end' => 'required|date|after_or_equal:begin',
         ]);
 
         if (Auth::check()) {
@@ -116,6 +111,10 @@ class TaskController extends Controller
         $month = $request->query('month');
         $day = $request->query('day');
         $offset = $request->query('offset');
+
+        if (!$year || !$month || !$day || !$offset) {
+            abort(302, 'Inappropriate Query');
+        }
 
         if ($offset == 'back') {
             $offset = -7;
@@ -169,6 +168,10 @@ class TaskController extends Controller
         $year = $request->query('year');
         $month = $request->query('month');
         $offset = $request->query('offset');
+
+        if (!$year || !$month || !$offset) {
+            abort(302, 'Inappropriate Query');
+        }
 
 
         if ($offset == 'back') {
