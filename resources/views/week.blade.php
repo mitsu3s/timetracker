@@ -28,10 +28,10 @@
                                 <h3 class="text-xl leading-6 text-gray-900">{{ $task->context }}</h3>
                                 @if ($task->status == 'looming')
                                     <p class="text-sm text-green-600">Looming</p>
-                                    {{-- @elseif ($task->status == 'ongoing')
-                                    <p class="text-sm text-blue-600">Ongoing</p> --}}
-                                @elseif ($task->status == 'waiting')
-                                    <p class="text-sm text-yellow-600">Waiting</p>
+                                @elseif ($task->status == 'ongoing')
+                                    <p class="text-sm text-blue-600">Ongoing</p>
+                                @elseif ($task->status == 'upcoming')
+                                    <p class="text-sm text-yellow-600">Upcoming</p>
                                 @elseif ($task->status == 'done')
                                     <p class="text-sm text-gray-600">Done</p>
                                 @endif

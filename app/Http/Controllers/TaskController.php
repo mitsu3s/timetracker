@@ -250,9 +250,11 @@ function addStatus($task)
 
     if ($begin->diffInHours(now()) <= 24) {
         $task->status = "looming";
+    } elseif ($begin->isPast() && $end->isFuture()) {
+        $task->status = "ongoing";
     } elseif ($begin->isFuture()) {
-        $task->status = "waiting";
-    } elseif ($begin->isPast()) {
+        $task->status = "upcoming";
+    } elseif ($end->isPast()) {
         $task->status = "done";
     }
 
