@@ -41,23 +41,18 @@
                             <x-input-label for="begin" :value="__('Begin')" />
                             <x-text-input id="begin" name="begin" type="datetime-local" class="mt-1 block w-full"
                                 required autocomplete="off" />
-                            {{-- <x-input-error class="mt-2" :messages="$errors->get('date')" /> --}}
+                            {{-- <x-input-error class="mt-2" :messages="$errors->get('begin')" /> --}}
                         </div>
 
                         <div>
                             <x-input-label for="end" :value="__('End')" />
                             <x-text-input id="end" name="end" type="datetime-local" class="mt-1 block w-full"
                                 required autocomplete="off" />
-                            {{-- <x-input-error class="mt-2" :messages="$errors->get('date')" /> --}}
+                            <x-input-error class="mt-2" :messages="$errors->get('end')" />
                         </div>
 
                         <div class="flex items-center gap-4">
                             <x-primary-button>{{ __('Create') }}</x-primary-button>
-
-                            {{-- @if (session('status') === 'profile-updated')
-                                    <p x-data="{ show: true }" x-show="show" x-transition x-init="setTimeout(() => show = false, 2000)"
-                                        class="text-sm text-gray-600">{{ __('Saved.') }}</p>
-                                @endif --}}
                         </div>
                     </form>
                 </div>

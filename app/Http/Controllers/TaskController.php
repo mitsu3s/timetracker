@@ -7,6 +7,7 @@ use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Validator;
 
 class TaskController extends Controller
 {
@@ -14,9 +15,15 @@ class TaskController extends Controller
     {
         $user_id = Auth::user()->id;
 
-        // Log::debug((session()->all()));
-        $tasks = Task::where('user_id', $user_id)->where('begin', '>=', now())->orderBy('begin', 'asc')
+        $tasks = Task::where('user_id', $user_id)
+            ->where('begin', '>=', now())
+            ->orderBy('begin', 'asc')
             ->get();
+
+        foreach ($tasks as $task) {
+            $task = addStatus($task);
+        }
+
         return view('dashboard', compact('tasks'));
     }
 
@@ -30,12 +37,11 @@ class TaskController extends Controller
 
     public function store(Request $request)
     {
-        // Log::debug($request->all());
         $request->validate([
             'context' => 'required',
             'place' => 'required',
-            'begin' => 'required',
-            'end' => 'required',
+            'begin' => 'required|date',
+            'end' => 'required|date|after_or_equal:begin',
         ]);
 
         if (Auth::check()) {
@@ -48,11 +54,8 @@ class TaskController extends Controller
 
             $task->save();
 
-            // return redirect('dashboard');
             return redirect()->route('dashboard');
         } else {
-
-            // return redirect('login');
             return redirect()->route('login');
         }
     }
@@ -60,18 +63,17 @@ class TaskController extends Controller
     public function edit($id)
     {
         $task = Task::find($id);
-        // Log::debug($task);
+
         return view('edit', compact('task'));
     }
 
     public function update(Request $request, $id)
     {
-        Log::debug($request->all());
         $request->validate([
             'context' => 'required',
             'place' => 'required',
             'begin' => 'required',
-            'end' => 'required',
+            'end' => 'required|date|after_or_equal:begin',
         ]);
 
         if (Auth::check()) {
@@ -116,6 +118,10 @@ class TaskController extends Controller
         $day = $request->query('day');
         $offset = $request->query('offset');
 
+        if (!$year || !$month || !$day || !$offset) {
+            abort(302, 'Inappropriate Query');
+        }
+
         if ($offset == 'back') {
             $offset = -7;
         } elseif ($offset == 'next') {
@@ -147,7 +153,12 @@ class TaskController extends Controller
 
         $tasks = Task::where('user_id', $user_id)
             ->whereBetween('begin', [$startDate, $endDate])
+            ->orderBy('begin', 'asc')
             ->get();
+
+        foreach ($tasks as $task) {
+            $task = addStatus($task);
+        }
 
         $start = $startDate->format('Y/m/d');
         $end = $endDate->format('Y/m/d');
@@ -168,6 +179,10 @@ class TaskController extends Controller
         $year = $request->query('year');
         $month = $request->query('month');
         $offset = $request->query('offset');
+
+        if (!$year || !$month || !$offset) {
+            abort(302, 'Inappropriate Query');
+        }
 
 
         if ($offset == 'back') {
@@ -201,6 +216,10 @@ class TaskController extends Controller
             ->orderBy('begin', 'asc')
             ->get();
 
+        foreach ($tasks as $task) {
+            $task = addStatus($task);
+        }
+
         return view('month', compact('tasks', 'year', 'month', 'monthName'));
     }
 }
@@ -223,4 +242,25 @@ function getMonthName($month)
     ];
 
     return $monthNames[$month] ?? 'Invalid Month';
+}
+
+function addStatus($task)
+{
+    $begin = Carbon::parse($task->begin);
+    $end = Carbon::parse($task->end);
+
+    if ($begin->diffInHours(now()) <= 24) {
+        $task->status = "looming";
+    } elseif ($begin->isPast() && $end->isFuture()) {
+        $task->status = "ongoing";
+    } elseif ($begin->isFuture()) {
+        $task->status = "upcoming";
+    } elseif ($end->isPast()) {
+        $task->status = "done";
+    }
+
+    $task->begin = $begin->format('Y-m-d H:i');
+    $task->end = $end->format('Y-m-d H:i');
+
+    return $task;
 }

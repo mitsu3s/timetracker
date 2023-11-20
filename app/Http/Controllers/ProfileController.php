@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use App\Models\Task;
 
 class ProfileController extends Controller
 {
@@ -47,9 +48,13 @@ class ProfileController extends Controller
         ]);
 
         $user = $request->user();
+        $tasks = Task::where('user_id', $user->id)->get();
 
         Auth::logout();
 
+        foreach ($tasks as $task) {
+            $task->delete();
+        }
         $user->delete();
 
         $request->session()->invalidate();

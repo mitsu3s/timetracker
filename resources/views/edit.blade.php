@@ -48,7 +48,7 @@
                             <x-input-label for="end" :value="__('End')" />
                             <x-text-input id="end" name="end" type="datetime-local" class="mt-1 block w-full"
                                 :value="old('end', $task->end)" required autocomplete="off" />
-                            {{-- <x-input-error class="mt-2" :messages="$errors->get('date')" /> --}}
+                            <x-input-error class="mt-2" :messages="$errors->get('end')" />
                         </div>
 
                         <div class="flex items-center gap-4">
