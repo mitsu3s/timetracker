@@ -153,6 +153,7 @@ class TaskController extends Controller
 
         $tasks = Task::where('user_id', $user_id)
             ->whereBetween('begin', [$startDate, $endDate])
+            ->orderBy('begin', 'asc')
             ->get();
 
         foreach ($tasks as $task) {
