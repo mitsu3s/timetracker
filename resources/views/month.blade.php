@@ -17,11 +17,12 @@
             </div>
         </div>
     </x-slot>
-    <div>
-        <ul class="bg-white shadow overflow-hidden sm:rounded-md max-w-md mx-auto mt-16">
+
+    <div class="">
+        <ul class="overflow-hidden sm:rounded-md max-w-md md:max-w-4xl mx-auto mt-16 md:grid md:grid-cols-2 md:gap-4">
             @if ($tasks->isNotEmpty())
                 @foreach ($tasks as $task)
-                    <li class="border-t border-gray-200">
+                    <li class="border-2 border-gray-200 rounded-md bg-white mb-4 md:mb-0">
                         <div class="px-4 py-5 sm:px-6">
                             <div class="flex items-center justify-between">
                                 <h3 class="text-xl leading-6 text-gray-900">{{ $task->context }}</h3>
