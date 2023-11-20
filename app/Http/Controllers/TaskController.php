@@ -16,8 +16,14 @@ class TaskController extends Controller
         $user_id = Auth::user()->id;
 
         $tasks = Task::where('user_id', $user_id)
+            ->where('begin', '>=', now())
             ->orderBy('begin', 'asc')
             ->get();
+
+        foreach ($tasks as $task) {
+            $task = addStatus($task);
+        }
+
         return view('dashboard', compact('tasks'));
     }
 
@@ -149,6 +155,10 @@ class TaskController extends Controller
             ->whereBetween('begin', [$startDate, $endDate])
             ->get();
 
+        foreach ($tasks as $task) {
+            $task = addStatus($task);
+        }
+
         $start = $startDate->format('Y/m/d');
         $end = $endDate->format('Y/m/d');
 
@@ -205,6 +215,10 @@ class TaskController extends Controller
             ->orderBy('begin', 'asc')
             ->get();
 
+        foreach ($tasks as $task) {
+            $task = addStatus($task);
+        }
+
         return view('month', compact('tasks', 'year', 'month', 'monthName'));
     }
 }
@@ -227,4 +241,23 @@ function getMonthName($month)
     ];
 
     return $monthNames[$month] ?? 'Invalid Month';
+}
+
+function addStatus($task)
+{
+    $begin = Carbon::parse($task->begin);
+    $end = Carbon::parse($task->end);
+
+    if ($begin->diffInHours(now()) <= 24) {
+        $task->status = "looming";
+    } elseif ($begin->isFuture()) {
+        $task->status = "waiting";
+    } elseif ($begin->isPast()) {
+        $task->status = "done";
+    }
+
+    $task->begin = $begin->format('Y-m-d H:i');
+    $task->end = $end->format('Y-m-d H:i');
+
+    return $task;
 }
