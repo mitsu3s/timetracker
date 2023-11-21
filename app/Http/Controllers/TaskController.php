@@ -249,7 +249,7 @@ function addStatus($task)
     $begin = Carbon::parse($task->begin);
     $end = Carbon::parse($task->end);
 
-    if ($begin->diffInHours(now()) <= 24) {
+    if ($begin->diffInHours(now()) <= 24 && $begin->isFuture()) {
         $task->status = "looming";
     } elseif ($begin->isPast() && $end->isFuture()) {
         $task->status = "ongoing";
