@@ -1,17 +1,16 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex justify-between items-center">
-            <div class="flex justify-start items-center sm:items-end">
+        <div class="flex justify-between items-end sm:items-center">
+            <div class="flex justify-start items-end">
                 <h2 class="font-semibold text-2xl text-gray-800 leading-tight">
                     <span class="hidden md:inline">{{ $start }} ~ {{ $end }} Schedules</span>
                     <span class="inline md:hidden">{{ $start }} ~ {{ $end }}</span>
                 </h2>
                 <a href="{{ route('moveweek', ['year' => $year, 'month' => $month, 'day' => $day, 'offset' => 'prev']) }}"
-                    class="pr-1 pl-4 sm:px-4">←Previous</a>
+                    class="pr-1 pl-4 sm:px-4">←Prev</a>
                 <a href="{{ route('moveweek', ['year' => $year, 'month' => $month, 'day' => $day, 'offset' => 'next']) }}"
                     class="pl-1 pr-4 sm:px-4">Next→</a>
             </div>
-
             <div class="flex items-center">
                 <a href="{{ route('create') }}"
                     class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">

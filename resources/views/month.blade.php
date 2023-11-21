@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex justify-between items-center">
-            <div class="flex justify-start items-end sm:items-end">
+        <div class="flex justify-between items-end sm:items-center">
+            <div class="flex justify-start items-end">
                 <h2 class="font-semibold text-2xl text-gray-800 leading-tight">
                     <span class="hidden md:inline">{{ $year }} {{ $monthName }} Schedules</span>
                     <span class="inline md:hidden">{{ $year }} {{ $monthName }}</span>
