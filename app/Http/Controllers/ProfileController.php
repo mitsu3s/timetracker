@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
-use App\Models\Task;
+use App\Models\Schedule;
 
 class ProfileController extends Controller
 {
@@ -29,10 +29,6 @@ class ProfileController extends Controller
     {
         $request->user()->fill($request->validated());
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
-        }
-
         $request->user()->save();
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
@@ -48,7 +44,7 @@ class ProfileController extends Controller
         ]);
 
         $user = $request->user();
-        $tasks = Task::where('user_id', $user->id)->get();
+        $tasks = Schedule::where('user_id', $user->id)->get();
 
         Auth::logout();
 

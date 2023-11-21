@@ -3,7 +3,7 @@
         <div class="flex justify-between items-center">
             <div class="flex justify-start items-end sm:items-end">
                 <h2 class="font-semibold text-2xl text-gray-800 leading-tight">
-                    <span class="hidden md:inline">{{ $year }} {{ $monthName }} Tasks</span>
+                    <span class="hidden md:inline">{{ $year }} {{ $monthName }} Schedules</span>
                     <span class="inline md:hidden">{{ $year }} {{ $monthName }}</span>
                 </h2>
                 <a href="{{ route('movemonth', ['year' => $year, 'month' => $month, 'offset' => 'prev']) }}"
@@ -24,7 +24,7 @@
         <ul class="overflow-hidden sm:rounded-md max-w-md md:max-w-4xl mx-auto mt-16 md:grid md:grid-cols-2 md:gap-4">
             @if ($tasks->isNotEmpty())
                 @foreach ($tasks as $task)
-                    <li class="border-2 border-gray-200 rounded-md bg-white mb-4 md:mb-0">
+                    <li class="border-2 border-gray-200 rounded-md bg-white mx-2 mb-4 md:mb-0">
                         <div class="px-4 py-5 sm:px-6">
                             <div class="flex items-center justify-between">
                                 <h3 class="text-xl leading-6 text-gray-900">{{ $task->context }}</h3>
