@@ -122,7 +122,7 @@ class TaskController extends Controller
             abort(302, 'Inappropriate Query');
         }
 
-        if ($offset == 'back') {
+        if ($offset == 'prev') {
             $offset = -7;
         } elseif ($offset == 'next') {
             $offset = 7;
@@ -185,7 +185,7 @@ class TaskController extends Controller
         }
 
 
-        if ($offset == 'back') {
+        if ($offset == 'prev') {
             $offset = -1;
         } elseif ($offset == 'next') {
             $offset = 1;
@@ -250,7 +250,7 @@ function addStatus($task)
     $end = Carbon::parse($task->end);
 
     if ($begin->diffInHours(now()) <= 24 && $begin->isFuture()) {
-        $task->status = "looming";
+        $task->status = "approaching";
     } elseif ($begin->isPast() && $end->isFuture()) {
         $task->status = "ongoing";
     } elseif ($begin->isFuture()) {

@@ -1,16 +1,18 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex justify-between items-center">
-            <h2 class="font-semibold text-2xl text-gray-800 leading-tight">
-                <span class="hidden md:inline">{{ $start }} ~ {{ $end }} Tasks</span>
-                <span class="inline md:hidden">{{ $start }} ~ {{ $end }}</span>
-            </h2>
-            <div class="flex items-center">
-                <a href="{{ route('moveweek', ['year' => $year, 'month' => $month, 'day' => $day, 'offset' => 'back']) }}"
-                    class="px-4">back</a>
+            <div class="flex justify-start items-center sm:items-end">
+                <h2 class="font-semibold text-2xl text-gray-800 leading-tight">
+                    <span class="hidden md:inline">{{ $start }} ~ {{ $end }} Tasks</span>
+                    <span class="inline md:hidden">{{ $start }} ~ {{ $end }}</span>
+                </h2>
+                <a href="{{ route('moveweek', ['year' => $year, 'month' => $month, 'day' => $day, 'offset' => 'prev']) }}"
+                    class="pr-1 pl-4 sm:px-4">←Previous</a>
                 <a href="{{ route('moveweek', ['year' => $year, 'month' => $month, 'day' => $day, 'offset' => 'next']) }}"
-                    class="px-4">next</a>
+                    class="pl-1 pr-4 sm:px-4">Next→</a>
+            </div>
 
+            <div class="flex items-center">
                 <a href="{{ route('create') }}"
                     class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
                     {{ __('Create') }}
@@ -27,14 +29,14 @@
                         <div class="px-4 py-5 sm:px-6">
                             <div class="flex items-center justify-between">
                                 <h3 class="text-xl leading-6 text-gray-900">{{ $task->context }}</h3>
-                                @if ($task->status == 'looming')
-                                    <p class="text-sm text-green-600">Looming</p>
+                                @if ($task->status == 'done')
+                                    <p class="text-sm text-gray-600">Done</p>
                                 @elseif ($task->status == 'ongoing')
                                     <p class="text-sm text-blue-600">Ongoing</p>
+                                @elseif ($task->status == 'approaching')
+                                    <p class="text-sm text-yellow-600">Approaching</p>
                                 @elseif ($task->status == 'upcoming')
-                                    <p class="text-sm text-yellow-600">Upcoming</p>
-                                @elseif ($task->status == 'done')
-                                    <p class="text-sm text-gray-600">Done</p>
+                                    <p class="text-sm text-green-600">Upcoming</p>
                                 @endif
                             </div>
                             <div class="mt-4 flex items-center justify-start">
