@@ -6,8 +6,7 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}" class="text-2xl">
-                        {{-- <x-application-logo class="block h-9 w-auto fill-current text-gray-800" /> --}}
-                        Task Tracker
+                        Time Tracker
                     </a>
                 </div>
 
@@ -89,7 +88,7 @@
     <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('All') }}
+                {{ __('Upcoming') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('setweek')" :active="request()->routeIs('week')">
                 {{ __('Week') }}

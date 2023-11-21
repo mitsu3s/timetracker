@@ -3,19 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Task;
+use App\Models\Schedule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 
-class TaskController extends Controller
+class ScheduleController extends Controller
 {
     public function index(Request $request)
     {
         $user_id = Auth::user()->id;
 
-        $tasks = Task::where('user_id', $user_id)
+        $tasks = Schedule::where('user_id', $user_id)
             ->where('begin', '>=', now())
             ->orderBy('begin', 'asc')
             ->get();
@@ -31,7 +31,7 @@ class TaskController extends Controller
     {
         $user_id = Auth::user()->id;
 
-        $tasks = Task::where('user_id', $user_id)->get();
+        $tasks = Schedule::where('user_id', $user_id)->get();
         return view('create', compact('tasks'));
     }
 
@@ -45,7 +45,7 @@ class TaskController extends Controller
         ]);
 
         if (Auth::check()) {
-            $task = new Task();
+            $task = new Schedule();
             $task->context = $request->context;
             $task->place = $request->place;
             $task->begin = $request->begin;
@@ -62,7 +62,7 @@ class TaskController extends Controller
 
     public function edit($id)
     {
-        $task = Task::find($id);
+        $task = Schedule::find($id);
 
         return view('edit', compact('task'));
     }
@@ -77,7 +77,7 @@ class TaskController extends Controller
         ]);
 
         if (Auth::check()) {
-            $task = Task::find($id);
+            $task = Schedule::find($id);
             $task->context = $request->context;
             $task->place = $request->place;
             $task->begin = $request->begin;
@@ -94,7 +94,7 @@ class TaskController extends Controller
     public function destroy($id)
     {
         if (Auth::check()) {
-            $task = Task::find($id);
+            $task = Schedule::find($id);
             $task->delete();
             return redirect()->route('dashboard');
         } else {
@@ -122,7 +122,7 @@ class TaskController extends Controller
             abort(302, 'Inappropriate Query');
         }
 
-        if ($offset == 'back') {
+        if ($offset == 'prev') {
             $offset = -7;
         } elseif ($offset == 'next') {
             $offset = 7;
@@ -151,7 +151,7 @@ class TaskController extends Controller
         $endDate = $startDate->copy()->addDays(6)->endOfDay();
 
 
-        $tasks = Task::where('user_id', $user_id)
+        $tasks = Schedule::where('user_id', $user_id)
             ->whereBetween('begin', [$startDate, $endDate])
             ->orderBy('begin', 'asc')
             ->get();
@@ -185,7 +185,7 @@ class TaskController extends Controller
         }
 
 
-        if ($offset == 'back') {
+        if ($offset == 'prev') {
             $offset = -1;
         } elseif ($offset == 'next') {
             $offset = 1;
@@ -210,7 +210,7 @@ class TaskController extends Controller
         $user_id = Auth::user()->id;
         $monthName = getMonthName($month);
 
-        $tasks = Task::where('user_id', $user_id)
+        $tasks = Schedule::where('user_id', $user_id)
             ->whereYear('begin', $year)
             ->whereMonth('begin', $month)
             ->orderBy('begin', 'asc')
@@ -249,8 +249,8 @@ function addStatus($task)
     $begin = Carbon::parse($task->begin);
     $end = Carbon::parse($task->end);
 
-    if ($begin->diffInHours(now()) <= 24) {
-        $task->status = "looming";
+    if ($begin->diffInHours(now()) <= 24 && $begin->isFuture()) {
+        $task->status = "approaching";
     } elseif ($begin->isPast() && $end->isFuture()) {
         $task->status = "ongoing";
     } elseif ($begin->isFuture()) {

@@ -13,7 +13,7 @@ class TaskSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('tasks')->insert([
+        DB::table('schedules')->insert([
             [
                 'begin' => '2023-11-15 08:00:00',
                 'end' => '2023-11-15 10:00:00',
