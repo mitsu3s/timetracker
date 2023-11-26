@@ -5,7 +5,7 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('upcoming') }}" class="text-2xl">
+                    <a href="{{ route('upcoming') }}" class="text-2xl font-bold">
                         Time Vault
                     </a>
                 </div>
