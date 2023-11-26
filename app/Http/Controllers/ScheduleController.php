@@ -29,10 +29,6 @@ class ScheduleController extends Controller
 
     public function create(Request $request)
     {
-        // $user_id = Auth::user()->id;
-
-        // $tasks = Schedule::where('user_id', $user_id)->get();
-        // return view('create', compact('tasks'));
         return view('create');
     }
 
