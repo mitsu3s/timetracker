@@ -24,15 +24,16 @@ class ScheduleController extends Controller
             $task = addStatus($task);
         }
 
-        return view('dashboard', compact('tasks'));
+        return view('upcoming', compact('tasks'));
     }
 
     public function create(Request $request)
     {
-        $user_id = Auth::user()->id;
+        // $user_id = Auth::user()->id;
 
-        $tasks = Schedule::where('user_id', $user_id)->get();
-        return view('create', compact('tasks'));
+        // $tasks = Schedule::where('user_id', $user_id)->get();
+        // return view('create', compact('tasks'));
+        return view('create');
     }
 
     public function store(Request $request)
@@ -54,7 +55,7 @@ class ScheduleController extends Controller
 
             $task->save();
 
-            return redirect()->route('dashboard');
+            return redirect()->route('upcoming');
         } else {
             return redirect()->route('login');
         }
@@ -85,7 +86,7 @@ class ScheduleController extends Controller
             $task->user_id = Auth::user()->id;
 
             $task->save();
-            return redirect()->route('dashboard');
+            return redirect()->route('upcoming');
         } else {
             return redirect()->route('login');
         }
@@ -96,7 +97,7 @@ class ScheduleController extends Controller
         if (Auth::check()) {
             $task = Schedule::find($id);
             $task->delete();
-            return redirect()->route('dashboard');
+            return redirect()->route('upcoming');
         } else {
             return redirect()->route('login');
         }

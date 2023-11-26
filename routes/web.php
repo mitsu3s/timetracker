@@ -20,7 +20,7 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/dashboard', [ScheduleController::class, 'index'])->name('dashboard');
+    Route::get('/upcoming', [ScheduleController::class, 'index'])->name('upcoming');
     Route::get('/create', [ScheduleController::class, 'create'])->name('create');
     Route::post('/store', [ScheduleController::class, 'store'])->name('store');
     Route::get('/edit/{id}', [ScheduleController::class, 'edit'])->name('edit');
