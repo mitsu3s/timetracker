@@ -21,11 +21,13 @@
                 </div>
                 <div class="hidden lg:flex lg:flex-1 lg:justify-end">
                     @auth
-                        <a href="{{ url('/upcoming') }}" class="text-sm font-semibold leading-6 text-gray-900">Dashboard</a>
+                        <a href="{{ url('/upcoming') }}"
+                            class="text-sm font-semibold leading-6 text-gray-900 hover:text-gray-600">Dashboard</a>
                     @else
                         <a href="{{ route('register') }}"
-                            class="text-md font-semibold leading-6 text-gray-900 pr-4">Register</a>
-                        <a href="{{ route('login') }}" class="text-md font-semibold leading-6 text-gray-900">Log in</a>
+                            class="text-md font-semibold leading-6 text-gray-900 hover:text-gray-600 pr-4">Register</a>
+                        <a href="{{ route('login') }}"
+                            class="text-md font-semibold leading-6 text-gray-900 hover:text-gray-600">Log in</a>
                     @endauth
                 </div>
             </nav>
@@ -79,13 +81,14 @@
                     <div class="mt-10 flex items-center justify-center gap-x-6">
                         @auth
                             <a href="{{ route('upcoming') }}"
-                                class="rounded-md bg-[#cd84d5] px-3.5 py-2.5 text-md font-semibold text-white shadow-sm hover:bg-[#d783cf] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black">Go
+                                class="rounded-md bg-[#cd84d5] px-3.5 py-2.5 text-md font-semibold text-white shadow-sm hover:bg-[#e182c8] focus:bg-[#e182c8] active:bg-[#cd84d5] focus:outline-none focus:ring-2 focus:ring-[#d783cf] focus:ring-offset-2 transition ease-in-out duration-150">Go
                                 Dashboard</a>
                         @else
                             <a href="{{ route('register') }}"
-                                class="rounded-md bg-[#cd84d5] px-3.5 py-2.5 text-md font-semibold text-white shadow-sm hover:bg-[#d783cf] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black">Get
+                                class="rounded-md bg-[#cd84d5] px-3.5 py-2.5 text-md font-semibold text-white shadow-sm hover:bg-[#e182c8] focus:bg-[#e182c8] active:bg-[#cd84d5] focus:outline-none focus:ring-2 focus:ring-[#d783cf] focus:ring-offset-2 transition ease-in-out duration-150">Get
                                 started</a>
-                            <a href="{{ route('login') }}" class="text-md font-semibold leading-6 text-gray-900">Log In
+                            <a href="{{ route('login') }}"
+                                class="text-md font-semibold leading-6 text-gray-900 hover:text-gray-600">Log In
                                 <span aria-hidden="true">→</span></a>
                         @endauth
                     </div>
