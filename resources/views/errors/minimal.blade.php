@@ -20,7 +20,7 @@
 
                 <div class="ml-4 text-lg text-gray-500 uppercase tracking-wider">
                     @yield('message')
-                    <a href="{{ route('dashboard') }}" class="ml-4 text-blue-500">Dashboard</a>
+                    <a href="{{ route('upcoming') }}" class="ml-4 text-blue-500">Dashboard</a>
                 </div>
             </div>
         </div>
