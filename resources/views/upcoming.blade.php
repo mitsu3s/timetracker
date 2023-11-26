@@ -13,19 +13,19 @@
 
     <div class="">
         <ul class="overflow-hidden sm:rounded-md max-w-md md:max-w-4xl mx-auto mt-16 md:grid md:grid-cols-2 md:gap-4">
-            @if ($tasks->isNotEmpty())
-                @foreach ($tasks as $task)
+            @if ($schedules->isNotEmpty())
+                @foreach ($schedules as $schedule)
                     <li class="bg-white border-2 border-gray-200 rounded-md mx-2 mb-4 md:mb-0">
                         <div class="px-4 py-5 sm:px-6">
                             <div class="flex items-center justify-between">
-                                <h3 class="text-xl leading-6 text-gray-900">{{ $task->context }}</h3>
-                                @if ($task->status == 'done')
+                                <h3 class="text-xl leading-6 text-gray-900">{{ $schedule->context }}</h3>
+                                @if ($schedule->status == 'done')
                                     <p class="text-sm text-gray-600">Done</p>
-                                @elseif ($task->status == 'ongoing')
+                                @elseif ($schedule->status == 'ongoing')
                                     <p class="text-sm text-blue-600">Ongoing</p>
-                                @elseif ($task->status == 'approaching')
+                                @elseif ($schedule->status == 'approaching')
                                     <p class="text-sm text-yellow-600">Approaching</p>
-                                @elseif ($task->status == 'upcoming')
+                                @elseif ($schedule->status == 'upcoming')
                                     <p class="text-sm text-green-600">Upcoming</p>
                                 @endif
                             </div>
@@ -37,7 +37,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
                                 </svg>
-                                <p class="text-md text-gray-800 ml-1">{{ $task->place }}</p>
+                                <p class="text-md text-gray-800 ml-1">{{ $schedule->place }}</p>
                             </div>
                             <div class="mt-4 flex items-center justify-start">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -45,13 +45,13 @@
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
-                                <p class="text-md text-gray-800 ml-1">{{ $task->begin }} ~ {{ $task->end }}</p>
+                                <p class="text-md text-gray-800 ml-1">{{ $schedule->begin }} ~ {{ $schedule->end }}</p>
                             </div>
                             <div class="mt-4 flex items-center justify-end">
-                                <a href="{{ route('edit', ['id' => $task->id]) }}"
+                                <a href="{{ route('edit', ['id' => $schedule->id]) }}"
                                     class="inline-flex items-center px-4 py-2 bg-indigo-700 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-600 focus:bg-indigo-600 active:bg-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 transition ease-in-out duration-150">Edit</a>
 
-                                <form method="POST" action="{{ route('destroy', ['id' => $task->id]) }}">
+                                <form method="POST" action="{{ route('destroy', ['id' => $schedule->id]) }}">
                                     @csrf
                                     @method('delete')
                                     <button type="submit"

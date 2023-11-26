@@ -15,16 +15,16 @@ class ScheduleController extends Controller
     {
         $user_id = Auth::user()->id;
 
-        $tasks = Schedule::where('user_id', $user_id)
+        $schedules = Schedule::where('user_id', $user_id)
             ->where('begin', '>=', now())
             ->orderBy('begin', 'asc')
             ->get();
 
-        foreach ($tasks as $task) {
-            $task = addStatus($task);
+        foreach ($schedules as $schedule) {
+            $schedule = addStatus($schedule);
         }
 
-        return view('upcoming', compact('tasks'));
+        return view('upcoming', compact('schedules'));
     }
 
     public function create(Request $request)
@@ -42,14 +42,14 @@ class ScheduleController extends Controller
         ]);
 
         if (Auth::check()) {
-            $task = new Schedule();
-            $task->context = $request->context;
-            $task->place = $request->place;
-            $task->begin = $request->begin;
-            $task->end = $request->end;
-            $task->user_id = Auth::user()->id;
+            $schedule = new Schedule();
+            $schedule->context = $request->context;
+            $schedule->place = $request->place;
+            $schedule->begin = $request->begin;
+            $schedule->end = $request->end;
+            $schedule->user_id = Auth::user()->id;
 
-            $task->save();
+            $schedule->save();
 
             return redirect()->route('upcoming');
         } else {
@@ -59,9 +59,13 @@ class ScheduleController extends Controller
 
     public function edit($id)
     {
-        $task = Schedule::find($id);
+        $schedule = Schedule::find($id);
 
-        return view('edit', compact('task'));
+        if ($schedule == null) {
+            abort(404);
+        }
+
+        return view('edit', compact('schedule'));
     }
 
     public function update(Request $request, $id)
@@ -74,14 +78,14 @@ class ScheduleController extends Controller
         ]);
 
         if (Auth::check()) {
-            $task = Schedule::find($id);
-            $task->context = $request->context;
-            $task->place = $request->place;
-            $task->begin = $request->begin;
-            $task->end = $request->end;
-            $task->user_id = Auth::user()->id;
+            $schedule = Schedule::find($id);
+            $schedule->context = $request->context;
+            $schedule->place = $request->place;
+            $schedule->begin = $request->begin;
+            $schedule->end = $request->end;
+            $schedule->user_id = Auth::user()->id;
 
-            $task->save();
+            $schedule->save();
             return redirect()->route('upcoming');
         } else {
             return redirect()->route('login');
@@ -91,8 +95,8 @@ class ScheduleController extends Controller
     public function destroy($id)
     {
         if (Auth::check()) {
-            $task = Schedule::find($id);
-            $task->delete();
+            $schedule = Schedule::find($id);
+            $schedule->delete();
             return redirect()->route('upcoming');
         } else {
             return redirect()->route('login');
@@ -148,19 +152,19 @@ class ScheduleController extends Controller
         $endDate = $startDate->copy()->addDays(6)->endOfDay();
 
 
-        $tasks = Schedule::where('user_id', $user_id)
+        $schedules = Schedule::where('user_id', $user_id)
             ->whereBetween('begin', [$startDate, $endDate])
             ->orderBy('begin', 'asc')
             ->get();
 
-        foreach ($tasks as $task) {
-            $task = addStatus($task);
+        foreach ($schedules as $schedule) {
+            $schedule = addStatus($schedule);
         }
 
         $start = $startDate->format('Y/m/d');
         $end = $endDate->format('Y/m/d');
 
-        return view('week', compact('tasks', 'year', 'month', 'day', 'start', 'end'));
+        return view('week', compact('schedules', 'year', 'month', 'day', 'start', 'end'));
     }
 
     public function setmonth(Request $request)
@@ -207,17 +211,17 @@ class ScheduleController extends Controller
         $user_id = Auth::user()->id;
         $monthName = getMonthName($month);
 
-        $tasks = Schedule::where('user_id', $user_id)
+        $schedules = Schedule::where('user_id', $user_id)
             ->whereYear('begin', $year)
             ->whereMonth('begin', $month)
             ->orderBy('begin', 'asc')
             ->get();
 
-        foreach ($tasks as $task) {
-            $task = addStatus($task);
+        foreach ($schedules as $schedule) {
+            $schedule = addStatus($schedule);
         }
 
-        return view('month', compact('tasks', 'year', 'month', 'monthName'));
+        return view('month', compact('schedules', 'year', 'month', 'monthName'));
     }
 }
 
@@ -241,23 +245,23 @@ function getMonthName($month)
     return $monthNames[$month] ?? 'Invalid Month';
 }
 
-function addStatus($task)
+function addStatus($schedule)
 {
-    $begin = Carbon::parse($task->begin);
-    $end = Carbon::parse($task->end);
+    $begin = Carbon::parse($schedule->begin);
+    $end = Carbon::parse($schedule->end);
 
     if ($begin->diffInHours(now()) <= 24 && $begin->isFuture()) {
-        $task->status = "approaching";
+        $schedule->status = "approaching";
     } elseif ($begin->isPast() && $end->isFuture()) {
-        $task->status = "ongoing";
+        $schedule->status = "ongoing";
     } elseif ($begin->isFuture()) {
-        $task->status = "upcoming";
+        $schedule->status = "upcoming";
     } elseif ($end->isPast()) {
-        $task->status = "done";
+        $schedule->status = "done";
     }
 
-    $task->begin = $begin->format('Y-m-d H:i');
-    $task->end = $end->format('Y-m-d H:i');
+    $schedule->begin = $begin->format('Y-m-d H:i');
+    $schedule->end = $end->format('Y-m-d H:i');
 
-    return $task;
+    return $schedule;
 }
