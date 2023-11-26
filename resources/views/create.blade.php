@@ -24,7 +24,7 @@
                         @csrf
 
                         <div>
-                            <x-input-label for="context" :value="__('context')" />
+                            <x-input-label for="context" :value="__('Context')" />
                             <x-text-input id="context" name="context" type="text" class="mt-1 block w-full"
                                 required autofocus autocomplete="off" />
                             {{-- <x-input-error class="mt-2" :messages="$errors->get('context')" /> --}}

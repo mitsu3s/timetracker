@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            TaskSeeder::class
+            ScheduleSeeder::class
         ]);
         // \App\Models\User::factory(10)->create();
 
