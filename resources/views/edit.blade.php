@@ -20,34 +20,34 @@
                         </p>
                     </header>
 
-                    <form method="post" action="{{ route('update', ['id' => $task->id]) }}" class="mt-6 space-y-6">
+                    <form method="post" action="{{ route('update', ['id' => $schedule->id]) }}" class="mt-6 space-y-6">
                         @csrf
                         @method('PUT')
                         <div>
                             <x-input-label for="context" :value="__('Context')" />
                             <x-text-input id="context" name="context" type="text" class="mt-1 block w-full"
-                                :value="old('context', $task->context)" required autofocus autocomplete="off" />
+                                :value="old('context', $schedule->context)" required autofocus autocomplete="off" />
                             {{-- <x-input-error class="mt-2" :messages="$errors->get('context')" /> --}}
                         </div>
 
                         <div>
                             <x-input-label for="place" :value="__('Place')" />
                             <x-text-input id="place" name="place" type="text" class="mt-1 block w-full"
-                                :value="old('place', $task->place)" required autocomplete="off" />
+                                :value="old('place', $schedule->place)" required autocomplete="off" />
                             {{-- <x-input-error class="mt-2" :messages="$errors->get('place')" /> --}}
                         </div>
 
                         <div>
                             <x-input-label for="begin" :value="__('Begin')" />
                             <x-text-input id="begin" name="begin" type="datetime-local" class="mt-1 block w-full"
-                                :value="old('begin', $task->begin)" required autocomplete="off" />
+                                :value="old('begin', $schedule->begin)" required autocomplete="off" />
                             {{-- <x-input-error class="mt-2" :messages="$errors->get('date')" /> --}}
                         </div>
 
                         <div>
                             <x-input-label for="end" :value="__('End')" />
                             <x-text-input id="end" name="end" type="datetime-local" class="mt-1 block w-full"
-                                :value="old('end', $task->end)" required autocomplete="off" />
+                                :value="old('end', $schedule->end)" required autocomplete="off" />
                             <x-input-error class="mt-2" :messages="$errors->get('end')" />
                         </div>
 

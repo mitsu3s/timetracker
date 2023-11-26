@@ -15,7 +15,7 @@
         <header class="absolute inset-x-0 top-0 z-50">
             <nav class="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
                 <div class="flex lg:flex-1">
-                    <a href="#" class="text-[32px] font-bold -m-1.5 p-1.5">
+                    <a href="/" class="text-[32px] font-bold -m-1.5 p-1.5">
                         Time Vault
                     </a>
                 </div>
@@ -36,21 +36,23 @@
                 <div
                     class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
                     <div class="flex items-center justify-between">
-                        <a href="#" class="text-2xl font-bold -m-1.5 p-1.5">
+                        <a href="/" class="text-3xl font-bold -m-1.5 p-1.5">
                             Time Vault
                         </a>
                     </div>
                     <div class="mt-6 flow-root">
-                        <div class="-my-6 divide-y divide-gray-500/10">
+                        <div class="-my-6 divide-y divide-[#cd84d5] divide-opacity-50">
                             <div class="space-y-2 py-4">
                             </div>
                             <div class="py-6">
                                 @auth
+                                    <a href="{{ route('upcoming') }}"
+                                        class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-[#cd84d5] hover:bg-[#d783cf] hover:bg-opacity-10">Dashboard</a>
                                 @else
                                     <a href="{{ route('register') }}"
-                                        class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Register</a>
+                                        class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-[#cd84d5] hover:bg-[#d783cf] hover:bg-opacity-10">Register</a>
                                     <a href="{{ route('login') }}"
-                                        class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Log
+                                        class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-[#cd84d5] hover:bg-[#d783cf] hover:bg-opacity-10">Log
                                         In</a>
                                 @endauth
                             </div>
