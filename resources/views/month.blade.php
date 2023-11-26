@@ -72,6 +72,14 @@
                         </div>
                     </li>
                 @endforeach
+            @else
+                <li class="bg-white border-2 border-gray-200 rounded-md mx-2 mb-4 md:mb-0">
+                    <div class="px-4 py-[83px] sm:px-6">
+                        <div class="flex items-center justify-center">
+                            <p class="text-gray-700 text-lg">No {{ $year }} {{ $monthName }} Schedule</p>
+                        </div>
+                    </div>
+                </li>
             @endif
         </ul>
     </div>
