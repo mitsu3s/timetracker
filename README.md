@@ -6,24 +6,41 @@
 $ git clone git@github.com:mitsu3s/timevault.git
 ```
 
-### env ファイルの追加
+### 依存関係のインストール
+
+```zsh
+$ composer install
+
+$ npm install -D tailwindcss postcss autoprefixer
+```
+
+### env ファイルの設定
+
+```zsh
+# .envファイルの作成
+$ touch .env
+
+# APP_KEYの生成
+$ php artisan key:generate
+
+# .envに記述
+
+```
 
 ### データベースの設定
 
 ```zsh
+# マイグレーションの実行
 $ php artisan migrate
 ```
 
 ### アプリケーションの起動
 
 ```zsh
-# サーバー起動
-$ php artisan serve
+# Viteサーバー起動
+$ npm run dev
 
-# Tailwind CSS用のサーバー起動
-$ npm build & npm run dev
+# Laravelサーバー起動
+$ php artisan serve --host=localhost
+
 ```
-
-<!-- ## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT). -->

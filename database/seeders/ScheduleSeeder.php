@@ -6,7 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class TaskSeeder extends Seeder
+class ScheduleSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,56 +15,38 @@ class TaskSeeder extends Seeder
     {
         DB::table('schedules')->insert([
             [
-                'begin' => '2023-11-15 08:00:00',
-                'end' => '2023-11-15 10:00:00',
-                'place' => 'Home',
-                'context' => '11/15 08:00-10:00',
+                'context' => 'Meeting',
+                'place' => 'Lab',
+                'begin' => '2023-11-25 18:00:00',
+                'end' => '2023-11-25 21:30:00',
                 'user_id' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'begin' => '2023-11-16 10:00:00',
-                'end' => '2023-11-16 12:00:00',
-                'place' => 'Home',
-                'context' => '11/16 10:00-12:00',
+                'context' => 'テスト',
+                'place' => '1号館',
+                'begin' => '2023-11-15 10:40:00',
+                'end' => '2023-11-15 12:10:00',
+                'user_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'context' => 'Study Golang',
+                'place' => 'どこでも',
+                'begin' => '2023-11-20 00:00:00',
+                'end' => '2023-12-10 00:00:00',
                 'user_id' => 2,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'begin' => '2023-11-13 13:00:00',
-                'end' => '2023-11-13 15:00:00',
-                'place' => 'Home',
-                'context' => '11/13 13:00-15:00',
-                'user_id' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'begin' => '2023-11-22 15:00:00',
-                'end' => '2023-11-22 17:00:00',
-                'place' => 'Home',
-                'context' => '11/22 15:00-17:00',
-                'user_id' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'begin' => '2023-11-23 17:00:00',
-                'end' => '2023-11-23 19:00:00',
-                'place' => 'Home',
-                'context' => '11/23 17:00-19:00',
+                'context' => 'アルバイト',
+                'place' => '塾',
+                'begin' => '2023-11-30 17:00:00',
+                'end' => '2023-12-31 01:00:00',
                 'user_id' => 2,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'begin' => '2023-11-24 19:00:00',
-                'end' => '2023-11-24 21:00:00',
-                'place' => 'Home',
-                'context' => '11/24 19:00-21:00',
-                'user_id' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
