@@ -10,7 +10,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="antialiased">
+<body class="">
     <div class="bg-white">
         <header class="absolute inset-x-0 top-0 z-50">
             <nav class="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
@@ -21,13 +21,13 @@
                 </div>
                 <div class="hidden lg:flex lg:flex-1 lg:justify-end">
                     @auth
-                        <a href="{{ url('/upcoming') }}"
+                        <a href="{{ route('upcoming') }}"
                             class="text-sm font-semibold leading-6 text-gray-900 hover:text-gray-600">Dashboard</a>
                     @else
                         <a href="{{ route('register') }}"
                             class="text-md font-semibold leading-6 text-gray-900 hover:text-gray-600 pr-4">Register</a>
                         <a href="{{ route('login') }}"
-                            class="text-md font-semibold leading-6 text-gray-900 hover:text-gray-600">Log in</a>
+                            class="text-md font-semibold leading-6 text-gray-900 hover:text-gray-600">Log In</a>
                     @endauth
                 </div>
             </nav>
