@@ -1,4 +1,18 @@
-## Time Vault
+# Time Vault
+
+## Requirement
+
+| Language/FrameWork | Version |
+| :----------------- | ------: |
+| PHP                |   8.2.4 |
+| Laravel            | 10.32.1 |
+| Laravel Breeze     |  1.26.1 |
+| MySQL              |  5.7.39 |
+| npm                |   9.4.0 |
+| Tailwind CSS       |  3.1.10 |
+| Vite               |   4.5.0 |
+
+## Usage
 
 ### プロジェクトのクローン
 
@@ -18,7 +32,7 @@ $ npm install -D tailwindcss postcss autoprefixer
 
 ```zsh
 # .envファイルの作成
-$ touch .env
+$ cp .env.example .env
 
 # APP_KEYの生成
 $ php artisan key:generate
