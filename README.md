@@ -24,7 +24,10 @@ $ touch .env
 $ php artisan key:generate
 
 # .envに記述
+APP_NAME=TimeVault
 
+DB_DATABASE=timevault
+DB_PASSWORD=root
 ```
 
 ### データベースの設定

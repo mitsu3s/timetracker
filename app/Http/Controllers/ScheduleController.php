@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Schedule;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Validator;
 
 class ScheduleController extends Controller
 {
@@ -27,7 +25,7 @@ class ScheduleController extends Controller
         return view('upcoming', compact('schedules'));
     }
 
-    public function create(Request $request)
+    public function create()
     {
         return view('create');
     }
@@ -103,7 +101,7 @@ class ScheduleController extends Controller
         }
     }
 
-    public function setweek(Request $request)
+    public function setweek()
     {
         $year = now()->year;
         $month = now()->month;
@@ -167,7 +165,7 @@ class ScheduleController extends Controller
         return view('week', compact('schedules', 'year', 'month', 'day', 'start', 'end'));
     }
 
-    public function setmonth(Request $request)
+    public function setmonth()
     {
         $year = now()->year;
         $month = now()->month;
